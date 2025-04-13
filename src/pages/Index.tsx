@@ -1,24 +1,31 @@
 export const Index = () => {
   return (
 <main className="container mt-5 contenido">
-    <section className="page-section about-heading">
+<section className="page-section clearfix">
         <div className="container">
-            <img className="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="/src/img/about.jpg" alt="..." />
-            <div className="about-heading-content">
-                <div className="row">
-                    <div className="col-xl-9 col-lg-10 mx-auto">
-                        <div className="bg-faded rounded p-5">
-                            <h2 className="section-heading mb-4">
-                                <span className="section-heading-upper">Libros con Historia, Raíces Profundas</span>
-                                <span className="section-heading-lower">Sobre Nuestra Librería</span>
-                            </h2>
-                            <p>Fundada en 1987 por la Gabriel, nuestra librería ha sido un refugio para amantes de la lectura, ofreciendo obras seleccionadas de autores locales e internacionales. Nos apasiona recorrer el mundo literario, descubriendo las mejores historias para traerlas hasta ti.</p>
-                            <p className="mb-0">
-                                Te
-                                <em> garantizamos</em>
-                                 que te enamorarás de nuestras cuidadas colecciones desde el momento en que cruces la puerta hasta que cierres la última página. Visítanos para hacer de la lectura parte de tu rutina diaria, compartir momentos con amigos o disfrutar de un tiempo a solas entre libros.
-                            </p>
-                        </div>
+            <div className="intro">
+                <img className="intro-img img-fluid mb-3 mb-lg-0 rounded" src="img/intro.jpg" alt="..." />
+                <div className="intro-text left-0 text-center bg-faded p-5 rounded">
+                    <h2 className="section-heading mb-4">
+                        <span className="section-heading-upper">Libros que Inspiran</span>
+                        <span className="section-heading-lower">Historias para Cada Momento</span>
+                    </h2>
+                    <p className="mb-3">Cada libro en nuestra colección ha sido cuidadosamente seleccionado, con historias que despiertan la imaginación y conocimientos que enriquecen el alma. Una vez que los descubras, nuestros libros se convertirán en una parte esencial de tu rutina diaria. ¡Te lo garantizamos!!</p>
+                    <div className="intro-button mx-auto"><a className="btn btn-primary btn-xl" href="store">¡Ve nuestro horario!</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section className="page-section cta">
+        <div className="container">
+            <div className="row">
+                <div className="col-xl-9 mx-auto">
+                    <div className="cta-inner bg-faded text-center rounded">
+                        <h2 className="section-heading mb-4">
+                            <span className="section-heading-upper">Nuestro Compromiso</span>
+                            <span className="section-heading-lower">Contigo</span>
+                        </h2>
+                        <p className="mb-0">Cada vez que entres en nuestra librería, nos dedicamos a brindarte una atención amable, un ambiente acogedor y, sobre todo, una cuidada selección de libros de la más alta calidad. Si algo no cumple con tus expectativas, háznoslo saber y haremos todo lo posible para solucionarlo. ¡Tu satisfacción es nuestra prioridad!</p>
                     </div>
                 </div>
             </div>
