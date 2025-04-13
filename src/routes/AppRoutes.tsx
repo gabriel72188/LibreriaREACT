@@ -1,7 +1,7 @@
 import { Index } from '../pages/Index';
-import { Contacto } from '../pages/Contacto';
-import { Habilidades } from '../pages/Habilidades';
-import { Proyectos } from '../pages/Proyectos';
+import { Store } from '../pages/store';
+import { Login } from '../pages/login';
+import { Products } from '../pages/products';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 export const AppRoutes = () => {
@@ -10,9 +10,9 @@ export const AppRoutes = () => {
     <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/index" element={<Index />} />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route path="/habilidades" element={<Habilidades/>} />
-        <Route path="/proyectos" element={<Proyectos />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/products" element={<Products />} />
     </Routes>
 </BrowserRouter>  )
 }
