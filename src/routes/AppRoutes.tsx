@@ -1,7 +1,7 @@
 import { Index } from '../pages/Index';
 import { Store } from '../pages/store';
-import { Login } from '../pages/login';
-import { Products } from '../pages/products';
+import { Login } from '../pages/Login';
+import { Products } from '../pages/Products';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 export const AppRoutes = () => {
