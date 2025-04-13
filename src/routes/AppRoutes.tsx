@@ -1,4 +1,5 @@
 import { Index } from '../pages/Index';
+import { About } from '../pages/about';
 import { Store } from '../pages/store';
 import { Login } from '../pages/Login';
 import { Products } from '../pages/Products';
@@ -10,6 +11,7 @@ export const AppRoutes = () => {
     <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/index" element={<Index />} />
+        <Route path="/about" element={<About/>} />
         <Route path="/store" element={<Store />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/products" element={<Products />} />
