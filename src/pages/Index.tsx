@@ -4,7 +4,7 @@ export const Index = () => {
 <section className="page-section clearfix">
         <div className="container">
             <div className="intro">
-                <img className="intro-img img-fluid mb-3 mb-lg-0 rounded" src="img/intro.jpg" alt="..." />
+                <img className="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/src/img/intro.jpg" alt="..." />
                 <div className="intro-text left-0 text-center bg-faded p-5 rounded">
                     <h2 className="section-heading mb-4">
                         <span className="section-heading-upper">Libros que Inspiran</span>
