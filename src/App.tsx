@@ -1,6 +1,6 @@
-import { Footer } from './components/Footer';
-import { Header } from './components/Header';
 import { useEffect } from 'react';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 import { AppRoutes } from './routes/AppRoutes';
 import './App.css';
 
@@ -19,18 +19,18 @@ function App() {
     document.body.appendChild(bootstrapJS);
   }, []);
 
+  console.log("Rendering Header, Footer, and Routes");
+
   return (
-    
-    <body className='amon'>
     <div className="container-full flex flex-col min-h-screen">
       <Header />
       <main className="container flex-1 mt-5">
-      <AppRoutes />
+        <AppRoutes />
       </main>
       <Footer />
     </div>
-    </body>
   );
+  
 }
 
 export default App;
