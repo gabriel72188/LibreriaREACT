@@ -1,6 +1,15 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Header = () => {
+  // Estado para controlar si el menú está abierto o cerrado
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Función para alternar el estado del menú
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <header>
       <h1 className="site-heading text-center text-faded d-none d-lg-block">
@@ -16,15 +25,17 @@ export const Header = () => {
           <button
             className="navbar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
-            aria-expanded="false"
+            aria-expanded={isMenuOpen ? 'true' : 'false'}
             aria-label="Toggle navigation"
+            onClick={toggleMenu}  // Al hacer clic, cambiamos el estado
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div
+            className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}  // Añadimos la clase "show" cuando el menú está abierto
+            id="navbarSupportedContent"
+          >
             <ul className="navbar-nav mx-auto">
               <li className="nav-item px-lg-4">
                 <Link className="nav-link text-uppercase" to="/">
