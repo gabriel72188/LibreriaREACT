@@ -19,7 +19,7 @@ const pool = mariadb.createPool({
 
 // Ruta para la página principal
 app.get('/', (req, res) => {
-  res.send('¡Bienvenido a la API de la librería!');
+  res.send('Api libreria');
 });
 
 // Ruta para obtener los datos de los libros

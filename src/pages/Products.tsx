@@ -7,7 +7,7 @@ interface Libro {
   titulo: string;
   id_autor: string;
   id_categoria: string;
-  precio: string; // Es un string porque viene con decimales como texto
+  precio: string;
   url_imagen: string;
 }
 
@@ -18,6 +18,7 @@ export const Products = () => {
     const fetchLibros = async () => {
       try {
         const response = await axios.get<Libro[]>('http://localhost:3000/api/libros');
+
         console.log('Datos recibidos:', response.data);  // Añadido para verificar los datos
         setLibros(response.data);
       } catch (error) {
