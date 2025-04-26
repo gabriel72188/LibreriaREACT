@@ -8,7 +8,7 @@ export const Index = () => {
           <div className="intro">
             <img
               className="intro-img img-fluid mb-3 mb-lg-0 rounded"
-              src="/src/img/intro.jpg"
+              src="/img/intro.jpg"
               alt="..."
             />
             <div className="intro-text left-0 text-center bg-faded p-5 rounded">
