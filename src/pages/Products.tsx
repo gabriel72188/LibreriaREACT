@@ -5,21 +5,21 @@ import axios from 'axios';
 interface Libro {
   id: number;
   titulo: string;
-  id_autor: string;
-  id_categoria: string;
+  autor: string;
+  categoria: string;
   precio: string;
   url_imagen: string;
 }
 
 export const Products = () => {
-  const [libros, setLibros] = useState<Libro[]>([]); // Estado para almacenar los libros
+  const [libros, setLibros] = useState<Libro[]>([]);
 
   useEffect(() => {
     const fetchLibros = async () => {
       try {
         const response = await axios.get<Libro[]>('http://localhost:3000/api/libros');
 
-        console.log('Datos recibidos:', response.data);  // Añadido para verificar los datos
+        console.log('Datos recibidos:', response.data);
         setLibros(response.data);
       } catch (error) {
         console.error('Error al cargar libros', error);
@@ -27,7 +27,7 @@ export const Products = () => {
     };
 
     fetchLibros();
-  }, []); // Solo se ejecuta una vez cuando el componente se monta
+  }, []);
 
   return (
     <main className="container mt-5 contenido">
@@ -40,8 +40,8 @@ export const Products = () => {
                 <img src={`/img/${libro.url_imagen}`} className="card-img-top" alt="Imagen del libro" />
                 <div className="card-body">
                   <h5 className="card-title">{libro.titulo}</h5>
-                  <p className="card-text"><strong>Autor:</strong> {libro.id_autor}</p>
-                  <p className="card-text"><strong>Categoría:</strong> {libro.id_categoria}</p>
+                  <p className="card-text"><strong>Autor:</strong> {libro.autor}</p>
+                  <p className="card-text"><strong>Categoría:</strong> {libro.categoria}</p>
                   <p className="card-text"><strong>Precio:</strong> {libro.precio} €</p>
                 </div>
                 <div className="card-footer text-center">

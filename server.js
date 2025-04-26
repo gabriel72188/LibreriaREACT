@@ -22,12 +22,26 @@ app.get('/', (req, res) => {
   res.send('Api libreria');
 });
 
-// Ruta para obtener los datos de los libros
+// Ruta para obtener los datos de los libros con autor y categoría
 app.get('/api/libros', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    const rows = await conn.query("SELECT * FROM libros"); // Cambia según tu estructura de tabla
+    
+    // Consulta para obtener libros con nombre de autor y categoría
+    const rows = await conn.query(`
+      SELECT 
+        libros.id,
+        libros.titulo,
+        autores.nombre AS autor,
+        categorias.nombre AS categoria,
+        libros.precio,
+        libros.url_imagen
+      FROM libros
+      JOIN autores ON libros.id_autor = autores.id
+      JOIN categorias ON libros.id_categoria = categorias.id
+    `);
+
     res.json(rows);  // Devolver los resultados como JSON
   } catch (err) {
     res.status(500).json({ error: "Error al ejecutar la consulta", details: err });
