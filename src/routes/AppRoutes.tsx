@@ -4,6 +4,7 @@ import { About } from '../pages/About';
 import { Products } from '../pages/Products';
 import { Store } from '../pages/store';
 import  Login  from "../pages/Login";
+import AdminPage from '../pages/AdminPage';
 
 export const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ export const AppRoutes = () => {
 
       {/* Ruta del Login sin Header ni Footer */}
       <Route path="/login" element={<Login />} />
+      <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 };
