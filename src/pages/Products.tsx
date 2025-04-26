@@ -1,11 +1,56 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+// Definimos la estructura del libro
+interface Libro {
+  id: number;
+  titulo: string;
+  id_autor: string;
+  id_categoria: string;
+  precio: string; // Es un string porque viene con decimales como texto
+  url_imagen: string;
+}
+
 export const Products = () => {
-  return <main className="container mt-5 contenido">
-  <div className="container mt-4">
+  const [libros, setLibros] = useState<Libro[]>([]); // Estado para almacenar los libros
+
+  useEffect(() => {
+    const fetchLibros = async () => {
+      try {
+        const response = await axios.get<Libro[]>('http://localhost:3000/api/libros');
+        console.log('Datos recibidos:', response.data);  // Añadido para verificar los datos
+        setLibros(response.data);
+      } catch (error) {
+        console.error('Error al cargar libros', error);
+      }
+    };
+
+    fetchLibros();
+  }, []); // Solo se ejecuta una vez cuando el componente se monta
+
+  return (
+    <main className="container mt-5 contenido">
+      <div className="container mt-4">
         <h2 className="text-center">Lista de Libros</h2>
         <div className="row">
-          
-            
+          {libros.map((libro) => (
+            <div className="col-md-4 mb-4" key={libro.id}>
+              <div className="card h-100">
+                <img src={`/img/${libro.url_imagen}`} className="card-img-top" alt="Imagen del libro" />
+                <div className="card-body">
+                  <h5 className="card-title">{libro.titulo}</h5>
+                  <p className="card-text"><strong>Autor:</strong> {libro.id_autor}</p>
+                  <p className="card-text"><strong>Categoría:</strong> {libro.id_categoria}</p>
+                  <p className="card-text"><strong>Precio:</strong> {libro.precio} €</p>
+                </div>
+                <div className="card-footer text-center">
+                  <a href="#" className="btn btn-primary">Ver detalles</a>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-    </div>  
-</main>;
+      </div>  
+    </main>
+  );
 };

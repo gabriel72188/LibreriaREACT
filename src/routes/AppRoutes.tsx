@@ -3,7 +3,7 @@ import { Index } from '../pages/Index';
 import { About } from '../pages/About';
 import { Products } from '../pages/Products';
 import { Store } from '../pages/store';
-import Login from "../pages/Login";
+import  Login  from "../pages/Login";
 
 export const AppRoutes = () => {
   return (
