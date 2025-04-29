@@ -59,7 +59,7 @@ export const Header = () => {
               </li>
               <li className="nav-item px-lg-4">
                 <Link className="nav-link text-uppercase" to="/login">
-                  Admin
+                  Login
                 </Link>
               </li>
             </ul>

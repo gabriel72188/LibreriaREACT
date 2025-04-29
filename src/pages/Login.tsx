@@ -43,12 +43,13 @@ const Login = () => {
       <div className="sidenav d-flex align-items-center justify-content-center">
         <div className="login-main-text text-center">
           <h2>Librería<br />Más cuento que Calleja</h2>
-          <p>Login</p>
+          
         </div>
       </div>
       <div className="main d-flex align-items-center justify-content-center">
         <div className="col-md-6 col-sm-12">
           <div className="login-form">
+            <p>Login</p>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="nombre">Usuario</label>

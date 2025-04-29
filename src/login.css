@@ -1,6 +1,5 @@
 /* login.css */
 .sidenav {
-    background-color: #333;
     color: white;
     height: 100vh;
     display: flex;
@@ -9,8 +8,14 @@
   }
   
   .login-main-text h2 {
-    font-size: 2rem;
+    font-size: 3rem;
     color: white;
+    text-align: center;
+  }
+
+  .login-form p {
+    font-size: 1.5rem;
+    text-decoration: bold;
     text-align: center;
   }
   

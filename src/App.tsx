@@ -1,10 +1,16 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { AppRoutes } from './routes/AppRoutes';
 import './App.css';
 
 function App() {
+  const location = useLocation();
+  const hideLayoutRoutes = ['/login']; // Puedes añadir más rutas si quieres ocultar header/footer
+
+  const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
+
   useEffect(() => {
     // Añadir Bootstrap CSS
     const bootstrapCSS = document.createElement('link');
@@ -23,14 +29,13 @@ function App() {
 
   return (
     <div className="container-full flex flex-col min-h-screen">
-      <Header />
+      {!shouldHideLayout && <Header />}
       <main className="container flex-1 mt-5">
         <AppRoutes />
       </main>
-      <Footer />
+      {!shouldHideLayout && <Footer />}
     </div>
   );
-  
 }
 
 export default App;
