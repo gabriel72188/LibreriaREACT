@@ -1,7 +1,4 @@
 // AdminPage.tsx
-
-import React from 'react';
-
 const AdminPage = () => {
   return (
     <div>
