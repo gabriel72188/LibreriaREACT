@@ -17,6 +17,9 @@ export const AdminHeader = () => {
         <NavLink to="/admin/categorias" className="text-white me-3">Categorías</NavLink>
         <NavLink to="/admin/libros" className="text-white me-3">Libros</NavLink>
         <NavLink to="/admin/usuarios" className="text-white me-3">Usuarios</NavLink>
+        <button className="btn btn-outline-light btn-sm" onClick={handleSalir}>
+          Salir
+        </button>
       </nav>
     </header>
   );
