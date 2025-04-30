@@ -26,29 +26,32 @@ app.get('/', (req, res) => {
 // Ruta para obtener los datos de los libros con autor y categoría
 // Ruta para insertar un libro
 // Ruta para obtener todos los libros con autor y categoría
-app.post('/api/libros', async (req, res) => {
-  const { titulo, autor, categoria, precio, url_imagen } = req.body;
-
+app.get('/api/libros', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
 
-    // Inserta el libro en la base de datos
-    const result = await conn.query(
-      `INSERT INTO libros (titulo, id_autor, id_categoria, precio, url_imagen)
-       VALUES (?, (SELECT id FROM autores WHERE nombre = ?), (SELECT id FROM categorias WHERE nombre = ?), ?, ?)`,
-      [titulo, autor, categoria, precio, url_imagen]
-    );
+    const rows = await conn.query(`
+      SELECT 
+        libros.id,
+        libros.titulo,
+        autores.nombre AS autor,
+        categorias.nombre AS categoria,
+        libros.precio,
+        libros.url_imagen
+      FROM libros
+      JOIN autores ON libros.id_autor = autores.id
+      JOIN categorias ON libros.id_categoria = categorias.id
+    `);
 
-    // Verifica si la inserción fue exitosa
-    if (result.affectedRows > 0) {
-      res.status(201).json({ message: 'Libro insertado correctamente', id: result.insertId });
-    } else {
-      res.status(400).json({ message: 'No se pudo insertar el libro' });
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'No se encontraron libros' });
     }
+
+    res.json(rows);
   } catch (err) {
-    console.error('Error al insertar libro', err);
-    res.status(500).json({ message: 'Error al insertar el libro', details: err });
+    console.error('Error al obtener libros:', err);
+    res.status(500).json({ success: false, message: 'Error al obtener los libros', details: err });
   } finally {
     if (conn) conn.end();
   }
