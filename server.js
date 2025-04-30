@@ -53,9 +53,70 @@ app.get('/api/libros', async (req, res) => {
     if (conn) conn.end();
   }
 });
-
 // Ruta para obtener todos los usuarios
-// Cambiar la ruta de GET a POST para la autenticación de login
+app.get('/api/usuarios', async (req, res) => {
+  let conn;
+
+  try {
+    conn = await pool.getConnection();
+
+    const rows = await conn.query('SELECT * FROM usuarios');
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'No se encontraron usuarios' });
+    }
+
+    res.json(rows);
+  } catch (err) {
+    console.error('Error al obtener usuarios:', err);
+    res.status(500).json({ success: false, message: 'Error al obtener los usuarios', details: err });
+  } finally {
+    if (conn) conn.end();
+  }
+});
+
+app.get('/api/categorias', async (req, res) => {
+  let conn;
+
+  try {
+    conn = await pool.getConnection();
+
+    const rows = await conn.query('SELECT * FROM categorias');
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'No se encontraron usuarios' });
+    }
+
+    res.json(rows);
+  } catch (err) {
+    console.error('Error al obtener usuarios:', err);
+    res.status(500).json({ success: false, message: 'Error al obtener los usuarios', details: err });
+  } finally {
+    if (conn) conn.end();
+  }
+});
+app.get('/api/autores', async (req, res) => {
+  let conn;
+
+  try {
+    conn = await pool.getConnection();
+
+    const rows = await conn.query('SELECT * FROM autores');
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'No se encontraron usuarios' });
+    }
+
+    res.json(rows);
+  } catch (err) {
+    console.error('Error al obtener usuarios:', err);
+    res.status(500).json({ success: false, message: 'Error al obtener los usuarios', details: err });
+  } finally {
+    if (conn) conn.end();
+  }
+});
+
+
 app.post('/api/login', async (req, res) => {
     let conn;
   

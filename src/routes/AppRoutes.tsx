@@ -5,6 +5,11 @@ import { Products } from '../pages/Products';
 import { Store } from '../pages/store';
 import  Login  from "../pages/Login";
 import AdminPage from '../pages/AdminPage';
+import AdminLibros from '../pages/admin/Libros';
+import AdminAutores from '../pages/admin/Autores';
+import AdminUsuarios from '../pages/admin/Usuarios';
+import AdminCategorias from '../pages/admin/Categorias';
+
 
 export const AppRoutes = () => {
   return (
@@ -18,6 +23,11 @@ export const AppRoutes = () => {
       {/* Ruta del Login sin Header ni Footer */}
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin/libros" element={<AdminLibros />} />
+      <Route path="/admin/autores" element={<AdminAutores />} />
+      <Route path="/admin/usuarios" element={<AdminUsuarios />} />
+      <Route path="/admin/categorias" element={<AdminCategorias />} />
+
     </Routes>
   );
 };
