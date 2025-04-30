@@ -24,35 +24,90 @@ app.get('/', (req, res) => {
 });
 
 // Ruta para obtener los datos de los libros con autor y categoría
-app.get('/api/libros', async (req, res) => {
+// Ruta para insertar un libro
+// Ruta para obtener todos los libros con autor y categoría
+app.post('/api/libros', async (req, res) => {
+  const { titulo, autor, categoria, precio, url_imagen } = req.body;
+
   let conn;
   try {
     conn = await pool.getConnection();
-    const rows = await conn.query(`
-      SELECT 
-        libros.id,
-        libros.titulo,
-        autores.nombre AS autor,
-        categorias.nombre AS categoria,
-        libros.precio,
-        libros.url_imagen
-      FROM libros
-      JOIN autores ON libros.id_autor = autores.id
-      JOIN categorias ON libros.id_categoria = categorias.id
-    `);
 
-    if (rows.length === 0) {
-      return res.status(404).json({ success: false, message: 'No se encontraron libros' });
+    // Inserta el libro en la base de datos
+    const result = await conn.query(
+      `INSERT INTO libros (titulo, id_autor, id_categoria, precio, url_imagen)
+       VALUES (?, (SELECT id FROM autores WHERE nombre = ?), (SELECT id FROM categorias WHERE nombre = ?), ?, ?)`,
+      [titulo, autor, categoria, precio, url_imagen]
+    );
+
+    // Verifica si la inserción fue exitosa
+    if (result.affectedRows > 0) {
+      res.status(201).json({ message: 'Libro insertado correctamente', id: result.insertId });
+    } else {
+      res.status(400).json({ message: 'No se pudo insertar el libro' });
     }
-
-    res.json(rows);  // Devolver los resultados como JSON
   } catch (err) {
-    console.error('Error al ejecutar la consulta', err);
-    res.status(500).json({ success: false, message: 'Error al obtener los libros', details: err });
+    console.error('Error al insertar libro', err);
+    res.status(500).json({ message: 'Error al insertar el libro', details: err });
   } finally {
     if (conn) conn.end();
   }
 });
+
+
+
+app.delete('/api/libros/:id', async (req, res) => {
+  const { id } = req.params;
+
+  let conn;
+  try {
+    conn = await pool.getConnection();
+
+    const result = await conn.query('DELETE FROM libros WHERE id = ?', [id]);
+
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: 'Libro eliminado' });
+    } else {
+      res.status(404).json({ message: 'Libro no encontrado' });
+    }
+  } catch (err) {
+    console.error('Error al eliminar libro', err);
+    res.status(500).json({ message: 'Error al eliminar el libro', details: err });
+  } finally {
+    if (conn) conn.end();
+  }
+});
+app.put('/api/libros/:id', async (req, res) => {
+  const { titulo, autor, categoria, precio, url_imagen } = req.body;
+  const { id } = req.params;
+
+  let conn;
+  try {
+    conn = await pool.getConnection();
+
+    const result = await conn.query(
+      `UPDATE libros
+       SET titulo = ?, id_autor = (SELECT id FROM autores WHERE nombre = ?),
+           id_categoria = (SELECT id FROM categorias WHERE nombre = ?),
+           precio = ?, url_imagen = ?
+       WHERE id = ?`,
+      [titulo, autor, categoria, precio, url_imagen, id]
+    );
+
+    if (result.affectedRows > 0) {
+      res.json({ id, titulo, autor, categoria, precio, url_imagen });
+    } else {
+      res.status(400).json({ message: 'No se pudo actualizar el libro' });
+    }
+  } catch (err) {
+    console.error('Error al actualizar libro', err);
+    res.status(500).json({ message: 'Error al actualizar el libro', details: err });
+  } finally {
+    if (conn) conn.end();
+  }
+});
+
+
 // Ruta para obtener todos los usuarios
 app.get('/api/usuarios', async (req, res) => {
   let conn;
