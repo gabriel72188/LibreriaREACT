@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Header = () => {
-  // Estado para controlar si el menú está abierto o cerrado
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Función para alternar el estado del menú
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };

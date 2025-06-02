@@ -4,7 +4,6 @@ export const AdminHeader = () => {
   const navigate = useNavigate();
 
   const handleSalir = () => {
-    // Aquí podrías limpiar tokens/localStorage si usas autenticación real
     navigate('/');
   };
 
