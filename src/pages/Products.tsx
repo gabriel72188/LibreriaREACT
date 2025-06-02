@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 interface Libro {
   id: number;
   titulo: string;
@@ -70,12 +70,9 @@ export const Products = () => {
                   <p className="card-text"><strong>Precio:</strong> {libro.precio} €</p>
                 </div>
                 <div className="card-footer text-center">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => setLibroSeleccionado(libro)}
-                  >
-                    Ver detalles
-                  </button>
+                <Link to={`/libro/${libro.id}`} className="btn btn-primary">
+                  Ver detalles
+                </Link>
                 </div>
               </div>
             </div>
@@ -83,36 +80,43 @@ export const Products = () => {
         </div>
       </div>
       {libroSeleccionado && (
-        <div className="modal show d-block" tabIndex={-1} role="dialog">
-          <div className="modal-dialog modal-lg" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{libroSeleccionado.titulo}</h5>
-                <button type="button" className="btn-close" onClick={() => setLibroSeleccionado(null)} />
-              </div>
-              <div className="modal-body">
-                <img
-                  src={`/${libroSeleccionado.url_imagen}`}
-                  alt="Imagen del libro"
-                  className="img-fluid mb-3"
-                />
-                <p><strong>Autor:</strong> {libroSeleccionado.autor}</p>
-                <p><strong>Categoría:</strong> {libroSeleccionado.categoria}</p>
-                <p><strong>Precio:</strong> {libroSeleccionado.precio} €</p>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => setLibroSeleccionado(null)}
-                >
-                  Cerrar
-                </button>
-              </div>
+  <div className="modal show d-block" tabIndex={-1} role="dialog">
+    <div className="modal-dialog modal-lg" role="document">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title">{libroSeleccionado.titulo}</h5>
+          <button type="button" className="btn-close" onClick={() => setLibroSeleccionado(null)} />
+        </div>
+        <div className="modal-body">
+          <div className="row">
+            <div className="col-md-5 d-flex align-items-center">
+              <img
+                src={`/${libroSeleccionado.url_imagen}`}
+                alt="Imagen del libro"
+                className="img-fluid"
+              />
+            </div>
+            <div className="col-md-7">
+              <p><strong>Autor:</strong> {libroSeleccionado.autor}</p>
+              <p><strong>Categoría:</strong> {libroSeleccionado.categoria}</p>
+              <p><strong>Precio:</strong> {libroSeleccionado.precio} €</p>
             </div>
           </div>
         </div>
-      )}
+        <div className="modal-footer">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setLibroSeleccionado(null)}
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
     </main>
   );
 };

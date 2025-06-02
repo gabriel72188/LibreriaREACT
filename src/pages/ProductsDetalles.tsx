@@ -27,12 +27,23 @@ const DetalleLibro = () => {
   if (!libro) return <div className="text-center mt-5">Cargando libro...</div>;
 
   return (
-    <div className="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center bg-light">
-      <img src={`/${libro.url_imagen}`} alt={libro.titulo} className="mb-4" style={{ maxHeight: '400px' }} />
-      <h2>{libro.titulo}</h2>
-      <p><strong>Autor:</strong> {libro.autor}</p>
-      <p><strong>Categoría:</strong> {libro.categoria}</p>
-      <p><strong>Precio:</strong> {libro.precio} €</p>
+    <div className="container-fluid d-flex align-items-center justify-content-center">
+      <div className="row mb-5 shadow p-4 bg-white rounded" style={{ maxWidth: '900px', width: '100%' }}>
+        <div className="col-md-5 d-flex align-items-center justify-content-center">
+          <img
+            src={`/${libro.url_imagen}`}
+            alt={libro.titulo}
+            className="img-fluid rounded"
+            style={{ maxHeight: '400px', objectFit: 'contain' }}
+          />
+        </div>
+        <div className="col-md-7">
+          <h2 className="mb-3">{libro.titulo}</h2>
+          <p><strong>Autor:</strong> {libro.autor}</p>
+          <p><strong>Categoría:</strong> {libro.categoria}</p>
+          <p><strong>Precio:</strong> {libro.precio} €</p>
+        </div>
+      </div>
     </div>
   );
 };

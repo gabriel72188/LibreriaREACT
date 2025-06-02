@@ -9,8 +9,23 @@ import './App.css';
 function App() {
   const location = useLocation();
 
-  const hideLayoutRoutes = ['/login', '/admin', '/admin/autores', '/admin/categorias', '/admin/libros', '/admin/usuarios'];
+  const hideLayoutRoutes = [
+    '/login',
+    '/admin',
+    '/admin/autores',
+    '/admin/categorias',
+    '/admin/libros',
+    '/admin/usuarios',
+  ];
+
   const isAdminPage = location.pathname.startsWith('/admin');
+  const hideLayout = hideLayoutRoutes.some(route => {
+    if (route.includes(':')) {
+      const baseRoute = route.split('/:')[0];
+      return location.pathname.startsWith(baseRoute);
+    }
+    return location.pathname === route;
+  });
 
   useEffect(() => {
     const bootstrapCSS = document.createElement('link');
@@ -26,17 +41,16 @@ function App() {
 
   return (
     <div className="container-full flex flex-col min-h-screen">
-      {!hideLayoutRoutes.includes(location.pathname) && <Header />}
+      {!hideLayout && <Header />}
       {isAdminPage && <AdminHeader />}
 
       <main className="container flex-1 mt-4">
         <AppRoutes />
       </main>
 
-      {!hideLayoutRoutes.includes(location.pathname) && <Footer />}
+      {!hideLayout && <Footer />}
     </div>
   );
 }
 
 export default App;
-

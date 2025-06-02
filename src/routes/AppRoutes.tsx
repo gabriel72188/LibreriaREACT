@@ -9,12 +9,12 @@ import AdminLibros from '../pages/admin/Libros';
 import AdminAutores from '../pages/admin/Autores';
 import AdminUsuarios from '../pages/admin/Usuarios';
 import AdminCategorias from '../pages/admin/Categorias';
+import DetalleLibro from '../pages/ProductsDetalles';
 
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      {/* Rutas generales con Header y Footer */}
       <Route path="/" element={<Index />} />
       <Route path="/about" element={<About />} />
       <Route path="/products" element={<Products />} />
@@ -27,6 +27,7 @@ export const AppRoutes = () => {
       <Route path="/admin/autores" element={<AdminAutores />} />
       <Route path="/admin/usuarios" element={<AdminUsuarios />} />
       <Route path="/admin/categorias" element={<AdminCategorias />} />
+      <Route path="/libro/:id" element={<DetalleLibro />} />
 
     </Routes>
   );
