@@ -1,14 +1,12 @@
 import express from 'express';
 import mariadb from 'mariadb';
-import cors from 'cors';  // Habilitar CORS
+import cors from 'cors';
 const app = express();
 const port = 3000;
 
-// Middleware para manejar solicitudes JSON
 app.use(express.json());
-app.use(cors()); // Habilitar CORS para permitir solicitudes desde el frontend
+app.use(cors());
 
-// Configuración del pool de conexiones a MariaDB
 const pool = mariadb.createPool({
   host: 'localhost',
   port: 3310,
@@ -18,14 +16,52 @@ const pool = mariadb.createPool({
   connectionLimit: 5,
 });
 
-// Ruta para la página principal
 app.get('/', (req, res) => {
   res.send('Api libreria');
 });
+app.delete('/api/autores/:id', async (req, res) => {
+  const { id } = req.params;
+  let conn;
 
-// Ruta para obtener los datos de los libros con autor y categoría
-// Ruta para insertar un libro
-// Ruta para obtener todos los libros con autor y categoría
+  try {
+    conn = await pool.getConnection();
+
+    const result = await conn.query('DELETE FROM autores WHERE id = ?', [id]);
+
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: 'Autor eliminado correctamente' });
+    } else {
+      res.status(404).json({ message: 'Autor no encontrado' });
+    }
+  } catch (err) {
+    console.error('Error al eliminar autor:', err);
+    res.status(500).json({ message: 'Error en el servidor', details: err });
+  } finally {
+    if (conn) conn.end();
+  }
+});
+app.delete('/api/usuarios/:id', async (req, res) => {
+  const { id } = req.params;
+  let conn;
+
+  try {
+    conn = await pool.getConnection();
+
+    const result = await conn.query('DELETE FROM usuarios WHERE id = ?', [id]);
+
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: 'Usuario eliminado' });
+    } else {
+      res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+  } catch (err) {
+    console.error('Error al eliminar usuario', err);
+    res.status(500).json({ message: 'Error al eliminar el usuario', details: err });
+  } finally {
+    if (conn) conn.end();
+  }
+});
+
 app.get('/api/libros', async (req, res) => {
   let conn;
   try {
@@ -181,18 +217,15 @@ app.post('/api/login', async (req, res) => {
     try {
       conn = await pool.getConnection();
       
-      // Obtener los datos de usuario y contraseña desde el cuerpo de la solicitud
       const { nombre, password } = req.body;
   
-      // Realiza la consulta para verificar las credenciales del usuario
       const rows = await conn.query('SELECT * FROM usuarios WHERE nombre = ? AND password = ?', [nombre, password]);
   
       if (rows.length === 0) {
         return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos' });
       }
   
-      // Si se encuentra el usuario, devuelve su rol
-      const user = rows[0]; // Obtener el primer usuario encontrado
+      const user = rows[0];
       res.json({ success: true, rol: user.rol });
     } catch (err) {
       console.error('Error al intentar iniciar sesión:', err);

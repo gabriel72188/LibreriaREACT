@@ -20,12 +20,12 @@
   }
   
   .main {
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    width: 100%;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 8px;
-    max-width: 100%; /* Permite que se expanda al máximo */
-    box-sizing: border-box; /* Evita que el padding afecte el ancho total */
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .login-form {

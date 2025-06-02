@@ -14,12 +14,12 @@ export const Products = () => {
   const [libros, setLibros] = useState<Libro[]>([]);
   const [filteredLibros, setFilteredLibros] = useState<Libro[]>([]);
   const [search, setSearch] = useState('');
+  const [libroSeleccionado, setLibroSeleccionado] = useState<Libro | null>(null);
 
   useEffect(() => {
     const fetchLibros = async () => {
       try {
         const response = await axios.get<Libro[]>('http://localhost:3000/api/libros');
-        console.log('Datos recibidos:', response.data);
         setLibros(response.data);
         setFilteredLibros(response.data);
       } catch (error) {
@@ -70,13 +70,50 @@ export const Products = () => {
                   <p className="card-text"><strong>Precio:</strong> {libro.precio} €</p>
                 </div>
                 <div className="card-footer text-center">
-                  <a href="#" className="btn btn-primary">Ver detalles</a>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setLibroSeleccionado(libro)}
+                  >
+                    Ver detalles
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
-      </div>  
+      </div>
+      {libroSeleccionado && (
+        <div className="modal show d-block" tabIndex={-1} role="dialog">
+          <div className="modal-dialog modal-lg" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">{libroSeleccionado.titulo}</h5>
+                <button type="button" className="btn-close" onClick={() => setLibroSeleccionado(null)} />
+              </div>
+              <div className="modal-body">
+                <img
+                  src={`/${libroSeleccionado.url_imagen}`}
+                  alt="Imagen del libro"
+                  className="img-fluid mb-3"
+                />
+                <p><strong>Autor:</strong> {libroSeleccionado.autor}</p>
+                <p><strong>Categoría:</strong> {libroSeleccionado.categoria}</p>
+                <p><strong>Precio:</strong> {libroSeleccionado.precio} €</p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setLibroSeleccionado(null)}
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 };
+
