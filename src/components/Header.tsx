@@ -28,12 +28,12 @@ export const Header = () => {
             aria-controls="navbarSupportedContent"
             aria-expanded={isMenuOpen ? 'true' : 'false'}
             aria-label="Toggle navigation"
-            onClick={toggleMenu}  // Al hacer clic, cambiamos el estado
+            onClick={toggleMenu}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
           <div
-            className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}  // Añadimos la clase "show" cuando el menú está abierto
+            className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav mx-auto">
